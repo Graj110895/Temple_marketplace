@@ -41,13 +41,12 @@ export default function SignupPage() {
 
     try {
       const { error } = await signUp(formData.email, formData.password, {
-        name: formData.name,
-        phone: formData.phone,
-        rashi: formData.rashi,
-        nakshatra: formData.nakshatra,
-        gothra: formData.gothra
-      })
-      
+  name: formData.name,
+  phone: formData.phone,
+  rashi: formData.rashi,
+  nakshatra: formData.nakshatra,
+  gothra: formData.gothra
+})    
       if (error) throw error
       
       alert('Account created successfully! Please check your email to verify your account.')

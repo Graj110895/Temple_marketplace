@@ -93,10 +93,11 @@ interface AuthContextType {
   user: User | null
   loading: boolean
   signIn: (email: string, password: string) => Promise<any>
-  signUp: (email: string, password: string) => Promise<any>
+  signUp: (email: string, password: string, metadata?: any) => Promise<any>  // Add optional metadata parameter
   signOut: () => Promise<any>
   isReady: boolean
 }
+
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
@@ -148,10 +149,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return await supabase.auth.signInWithPassword({ email, password })
   }
 
-  const signUp = async (email: string, password: string) => {
-    if (!supabase) throw new Error('Supabase not initialized')
-    return await supabase.auth.signUp({ email, password })
+  const signUp = async (email: string, password: string, metadata?: any) => {
+  if (!supabase) throw new Error('Supabase not initialized')
+  
+  const options: any = { email, password }
+  
+  if (metadata) {
+    options.options = {
+      data: metadata
+    }
   }
+  
+  return await supabase.auth.signUp(options)
+}
+
 
   const signOut = async () => {
     if (!supabase) throw new Error('Supabase not initialized')
