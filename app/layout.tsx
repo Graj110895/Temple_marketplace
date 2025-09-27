@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import './force-dynamic'
+export const dynamic = 'force-dynamic'
+
+// ... rest of your layout code
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -628,10 +628,14 @@ export default function Home() {
         // Only load data on client side
         if (typeof window === 'undefined') return
 
-        const { getSupabase } = await import('@/lib/supabase')
-        const supabase = getSupabase()
+        // Use simplified import
+        const { supabase } = await import('@/lib/supabase')
         
-        if (!supabase) {
+        // Check if environment variables are available
+        const hasConfig = process.env.NEXT_PUBLIC_SUPABASE_URL && 
+                         process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://temp.supabase.co'
+
+        if (!hasConfig) {
           // Mock data for development
           setTemples([
             {
@@ -649,6 +653,14 @@ export default function Home() {
               description: 'Historic temple dedicated to Goddess Meenakshi',
               image_url: '/temple-placeholder.jpg',
               rating: 4.7
+            },
+            {
+              id: '3',
+              name: 'Golden Temple',
+              location: 'Amritsar, Punjab',
+              description: 'Sacred Sikh temple with golden architecture',
+              image_url: '/temple-placeholder.jpg',
+              rating: 4.9
             }
           ])
           setLoading(false)
@@ -673,6 +685,14 @@ export default function Home() {
             description: 'Famous temple dedicated to Lord Venkateswara',
             image_url: '/temple-placeholder.jpg',
             rating: 4.8
+          },
+          {
+            id: '2',
+            name: 'Meenakshi Temple',
+            location: 'Madurai, Tamil Nadu', 
+            description: 'Historic temple dedicated to Goddess Meenakshi',
+            image_url: '/temple-placeholder.jpg',
+            rating: 4.7
           }
         ])
       } finally {

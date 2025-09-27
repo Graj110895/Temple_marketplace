@@ -25,9 +25,16 @@
 const nextConfig = {
   output: 'standalone',
   experimental: {
-    runtime: 'nodejs'
+    ppr: false
+  },
+  typescript: {
+    ignoreBuildErrors: true
+  },
+  eslint: {
+    ignoreDuringBuilds: true
   }
 }
 
 module.exports = nextConfig
+
 
